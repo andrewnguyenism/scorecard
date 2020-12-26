@@ -1,0 +1,1 @@
+export { GameIdWidget } from './GameIdWidget';

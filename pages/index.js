@@ -1,65 +1,48 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import Link from "next/link";
+import { JoinGameForm } from "../components/JoinGameForm/JoinGameForm";
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Scorecard</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
+      <main>
+        <div className="text-2xl mt-4 text-center uppercase mb-4">New Game</div>
+        <Link href="/new-game/dutch-blitz">
+          <a className="flex group rounded-2xl border-2 overflow-hidden m-4">
+            <div className="w-36 relative overflow-hidden">
+              <img
+                className="absolute inset-0 w-full h-full object-cover transition duration-200 transform group-hover:scale-110"
+                src="https://www.dutchblitz.com/wp-content/uploads/dbhed.jpg" 
+              />
+            </div>
+            <div className="flex-auto py-12 text-center group-hover:bg-gray-100">
+              <div className="uppercase font-bold">Dutch Blitz</div>
+              <div className="uppercase text-sm">2 - 8 players</div>
+            </div>
           </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
+        </Link>
+        <Link href="/new-game/7-wonders">
+          <a className="flex group rounded-2xl border-2 overflow-hidden m-4">
+            <div className="w-36 relative overflow-hidden">
+              <img
+                className="absolute inset-0 w-full h-full object-cover transition duration-200 transform group-hover:scale-110"
+                src="https://www.7wonders.net//storage/games/7-wonders/sev-content-159243209212Feq.png" 
+              />
+            </div>
+            <div className="flex-auto py-12 text-center group-hover:bg-gray-100">
+              <div className="uppercase font-bold">7 Wonders</div>
+              <div className="uppercase text-sm">2 - 8 players</div>
+            </div>
           </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        </Link>
+        <div className="text-2xl text-center uppercase mb-4">Join Game</div>
+        <JoinGameForm />
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
     </div>
-  )
+  );
 }
