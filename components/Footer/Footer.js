@@ -1,5 +1,8 @@
+import Link from "next/link";
+
 export const Footer = () => (
   <div className="text-center text-xs py-4 mb-4">
-    Created by Andrew Nguyen. v1-beta
+    <Link href="/changelog"><a className="block mb-2 underline">v1</a></Link>
+    <p>Created by Andrew Nguyen in 2020.</p>
   </div>
 )
