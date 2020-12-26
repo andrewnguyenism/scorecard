@@ -3,7 +3,7 @@ import { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { useUser } from "../../context/userContext";
+import { useUser } from "../../context/UserContext";
 import firebase from "../../firebase/client";
 
 export default function NewGame({ data }) {

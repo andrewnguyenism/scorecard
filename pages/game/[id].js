@@ -4,7 +4,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { useUser } from "../../context/userContext";
+import { useUser } from "../../context/UserContext";
 import firebase from "../../firebase/client";
 import { DutchBlitzScoreBoard } from "../../components/DutchBlitzScoreBoard";
 import { DutchBlitzScoreForm } from "../../components/DutchBlitzScoreForm";

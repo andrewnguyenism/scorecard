@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
 
-import { useUser } from "../../context/userContext";
+import { useUser } from "../../context/UserContext";
 import firebase from "../../firebase/client";
 
 import { GameIdWidget } from "../GameIdWidget";

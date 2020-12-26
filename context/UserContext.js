@@ -4,6 +4,8 @@ import firebase from '../firebase/client'
 
 export const UserContext = createContext()
 
+export const useUser = () => useContext(UserContext)
+
 export default function UserContextComp({ children }) {
   const [user, setUser] = useState(null)
   const [loadingUser, setLoadingUser] = useState(true) // Helpful, to update the UI accordingly.
@@ -27,6 +29,3 @@ export default function UserContextComp({ children }) {
     </UserContext.Provider>
   )
 }
-
-// Custom hook that shorthands the context!
-export const useUser = () => useContext(UserContext)
