@@ -1,7 +1,7 @@
-import firebase from 'firebase/app'
-import 'firebase/analytics'
-import 'firebase/auth'
-import 'firebase/database'
+import firebase from "firebase/app";
+import "firebase/analytics";
+import "firebase/auth";
+import "firebase/database";
 
 const clientCredentials = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -12,14 +12,14 @@ const clientCredentials = {
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
-}
+};
 
 // Check that `window` is in scope for the analytics module!
-if (typeof window !== 'undefined' && !firebase.apps.length) {
-  firebase.initializeApp(clientCredentials)
-  if ('measurementId' in clientCredentials) {
-    firebase.analytics()
+if (typeof window !== "undefined" && !firebase.apps.length) {
+  firebase.initializeApp(clientCredentials);
+  if ("measurementId" in clientCredentials) {
+    firebase.analytics();
   }
 }
 
-export default firebase
+export default firebase;

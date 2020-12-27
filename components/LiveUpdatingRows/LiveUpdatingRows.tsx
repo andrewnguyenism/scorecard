@@ -39,7 +39,7 @@ export const LiveUpdatingRows = ({ children }) => {
         const firstBox = prevBoundingBox[child.key];
         if (firstBox) {
           const lastBox = boundingBox[child.key];
-          const changeInY = firstBox.top - lastBox.top;  
+          const changeInY = firstBox.top - lastBox.top;
           if (changeInY) {
             requestAnimationFrame(() => {
               // Before the DOM paints, invert child to old position

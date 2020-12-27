@@ -1,1 +1,0 @@
-export { JoinGamForm } from './JoinGameForm';

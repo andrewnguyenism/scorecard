@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useUser } from "../../context/UserContext";
 import firebase from "../../firebase/client";
 
-export default function NewGame({ data }) {
+export default function NewGame() {
   const { user } = useUser();
   const router = useRouter();
   const {

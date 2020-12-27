@@ -1,7 +1,7 @@
 import { createRef } from "react";
 
 export const GameIdWidget = ({ gameId }) => {
-  const ref = createRef();
+  const ref = createRef<HTMLDivElement>();
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(gameId);

@@ -7,8 +7,14 @@ import firebase from "../../firebase/client";
 
 import { GameIdWidget } from "../GameIdWidget";
 
-export const JoinGameForm = ({ gameId, game, playerCount }) => {
-  const { user } = useUser();
+type Props = {
+  currentUserId: string;
+  gameId?: string;
+  game?: string;
+  playerCount?: number;
+}
+
+export const JoinGameForm = ({ currentUserId, gameId, game, playerCount }: Props) => {
   const router = useRouter();
 
   const [status, setStatus] = useState("idle");
@@ -61,8 +67,8 @@ export const JoinGameForm = ({ gameId, game, playerCount }) => {
       setDuplicateNameError(true);
     } else {
       const updates = {
-        [`/games/${gameId || gameCode}/players/${user.uid}`]: joinGameName,
-        [`/players/${gameId || gameCode}/${user.uid}`]: {
+        [`/games/${gameId || gameCode}/players/${currentUserId}`]: joinGameName,
+        [`/players/${gameId || gameCode}/${currentUserId}`]: {
           name: joinGameName,
           dutchScore: 0,
           blitzScore: 0,
@@ -70,7 +76,7 @@ export const JoinGameForm = ({ gameId, game, playerCount }) => {
           createdAt: firebase.database.ServerValue.TIMESTAMP,
           updatedAt: firebase.database.ServerValue.TIMESTAMP,
         },
-        [`/users/${user.uid}/${gameId || gameCode}`]: {
+        [`/users/${currentUserId}/${gameId || gameCode}`]: {
           name: joinGameName,
           createdAt: firebase.database.ServerValue.TIMESTAMP,
           updatedAt: firebase.database.ServerValue.TIMESTAMP,
@@ -143,10 +149,10 @@ export const JoinGameForm = ({ gameId, game, playerCount }) => {
           className={`border py-2 px-3 text-grey-darkest text-center ${
             duplicateNameError && "border-red-500"
           }`}
-          disabled={gameInfo?.players[user.uid]}
+          disabled={gameInfo?.players[currentUserId]}
           id="name"
           type="text"
-          placeholder={gameInfo?.players[user.uid] || "Your Name"}
+          placeholder={gameInfo?.players[currentUserId] || "Your Name"}
           onChange={(event) => {
             setJoinGameName(event.currentTarget.value);
             if (duplicateNameError) {
@@ -161,7 +167,7 @@ export const JoinGameForm = ({ gameId, game, playerCount }) => {
           </div>
         )}
       </div>
-      {gameInfo?.players[user.uid] ? (
+      {gameInfo?.players[currentUserId] ? (
         <div className="text-sm mt-1">
           You're already in this game!
         </div>

@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { useUser } from "../../context/UserContext";
 import firebase from "../../firebase/client";
-import { DutchBlitzScoreBoard } from "../../components/DutchBlitzScoreBoard";
-import { DutchBlitzScoreForm } from "../../components/DutchBlitzScoreForm";
 import { JoinGameForm } from "../../components/JoinGameForm/JoinGameForm";
-import { DutchBlitzRoundTimeline } from "../../components/DutchBlitzRoundTimeline/DutchBlitzRoundTimeline";
+import { DutchBlitzPlayer, DutchBlitzScoreBoard } from "../../components/DutchBlitz/DutchBlitzScoreBoard";
+import { DutchBlitzScoreForm } from "../../components/DutchBlitz/DutchBlitzScoreForm";
+import { DutchBlitzRoundTimeline } from "../../components/DutchBlitz/DutchBlitzRoundTimeline";
 
 export default function Game({ data }) {
   const { user } = useUser();
@@ -18,7 +17,7 @@ export default function Game({ data }) {
     query: { id: gameId },
   } = router;
 
-  const [status, setStatus] = useState();
+  const [status, setStatus] = useState("idle");
   const [gameInfo, setGameInfo] = useState(null);
   const [playersObject, setPlayersObject] = useState({});
   const [players, setPlayers] = useState([]);
@@ -43,8 +42,10 @@ export default function Game({ data }) {
   }, []);
 
   useEffect(() => {
-    const onPlayersChange = (snapshot) => {
-      const remotePlayers = snapshot.val();
+    const onPlayersChange = (snapshot: firebase.database.DataSnapshot) => {
+      const remotePlayers: {
+        [id: string]: DutchBlitzPlayer,
+      } = snapshot.val();
       if (remotePlayers) {
         const remotePlayersArray = Object.entries(remotePlayers)
           .map(([id, info]) => ({
@@ -211,7 +212,7 @@ export default function Game({ data }) {
                   currentUserId={user.uid}
                   finished={gameInfo.gameStatus === "finished"}
                   finishGame={finishGame}
-                  gameId={gameId}
+                  gameId={gameId as string}
                   isAdmin={user.uid === gameInfo.owner}
                   nextRound={nextRound}
                   players={players}
@@ -236,7 +237,7 @@ export default function Game({ data }) {
             ) : (
               <JoinGameForm
                 currentUserId={user.uid}
-                gameId={gameId}
+                gameId={gameId as string}
                 game={gameInfo.game}
                 playerCount={players.length}
               />

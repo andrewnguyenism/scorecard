@@ -1,8 +1,11 @@
 import Head from "next/head";
 import Link from "next/link";
+
 import { JoinGameForm } from "../components/JoinGameForm/JoinGameForm";
+import { useUser } from "../context/UserContext";
 
 export default function Home() {
+  const { user } = useUser();
   return (
     <div>
       <Head>
@@ -41,7 +44,7 @@ export default function Home() {
           </a>
         </Link>
         <div className="text-2xl text-center uppercase mb-4">Join Game</div>
-        <JoinGameForm />
+        <JoinGameForm currentUserId={user.uid} />
       </main>
     </div>
   );
