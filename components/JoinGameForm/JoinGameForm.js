@@ -19,18 +19,22 @@ export const JoinGameForm = ({ gameId, game, playerCount }) => {
   const [duplicateNameError, setDuplicateNameError] = useState(false);
 
   useEffect(() => {
-    const onGameInfo = (snapshot) => {
-      if (snapshot.val()) {
-        setGameInfo(snapshot.val());
+    const checkGameExists = async () => {
+      if (gameCode.length === 5) {
+        const snapshot = await firebase.database().ref(`games/${gameCode}`).once('value');
+        if (snapshot.val()) {
+          setGameInfo(snapshot.val());
+        } else {
+          setNoGameError(true);
+        }
       } else {
-        setNoGameError(true);
+        setGameInfo(null);
+        if (noGameError) {
+          setNoGameError(false);
+        }
       }
-    };
-    if (gameCode.length === 5) {
-      firebase.database().ref(`games/${gameCode}`).on("value", onGameInfo);
-    } else {
-      firebase.database().ref(`games/${gameCode}`).off("value", onGameInfo);
     }
+    checkGameExists();
   }, [gameCode]);
 
   const joinGame = async () => {
@@ -38,7 +42,7 @@ export const JoinGameForm = ({ gameId, game, playerCount }) => {
     const gameStatus = await firebase
       .database()
       .ref(`games/${gameCode}/gameStatus`)
-      .on("value");
+      .once("value");
       
     if (!gameId && !gameStatus.val()) {
       setNoGameError(true);
@@ -57,7 +61,7 @@ export const JoinGameForm = ({ gameId, game, playerCount }) => {
       setDuplicateNameError(true);
     } else {
       const updates = {
-        [`/games/${gameId || gameCode}/players/${user.uid}`]: true,
+        [`/games/${gameId || gameCode}/players/${user.uid}`]: joinGameName,
         [`/players/${gameId || gameCode}/${user.uid}`]: {
           name: joinGameName,
           dutchScore: 0,
@@ -114,7 +118,7 @@ export const JoinGameForm = ({ gameId, game, playerCount }) => {
             type="text"
             placeholder="AB123"
             onChange={(event) => {
-              setGameCode(event.currentTarget.value);
+              setGameCode(event.currentTarget.value.toUpperCase());
               if (noGameError) {
                 setNoGameError(false);
               }
@@ -123,7 +127,7 @@ export const JoinGameForm = ({ gameId, game, playerCount }) => {
           />
           {noGameError && (
             <div className="text-sm mt-1">
-              Game doesn't exist, make suer you got the code right.
+              Game doesn't exist, make sure you got the code right.
             </div>
           )}
         </div>
@@ -139,9 +143,10 @@ export const JoinGameForm = ({ gameId, game, playerCount }) => {
           className={`border py-2 px-3 text-grey-darkest text-center ${
             duplicateNameError && "border-red-500"
           }`}
+          disabled={gameInfo?.players[user.uid]}
           id="name"
           type="text"
-          placeholder="Your Name"
+          placeholder={gameInfo?.players[user.uid] || "Your Name"}
           onChange={(event) => {
             setJoinGameName(event.currentTarget.value);
             if (duplicateNameError) {
@@ -156,12 +161,18 @@ export const JoinGameForm = ({ gameId, game, playerCount }) => {
           </div>
         )}
       </div>
-      <button
-        className="block bg-indigo-800 hover:bg-indigo-700 text-white uppercase text-sm font-semibold mx-auto px-4 py-2 rounded-2xl"
-        onClick={() => joinGame()}
-      >
-        Join
-      </button>
+      {gameInfo?.players[user.uid] ? (
+        <div className="text-sm mt-1">
+          You're already in this game!
+        </div>
+      ) : (
+        <button
+          className="block bg-indigo-800 hover:bg-indigo-700 text-white uppercase text-sm font-semibold mx-auto px-4 py-2 rounded-2xl"
+          onClick={() => joinGame()}
+        >
+          Join
+        </button>
+      )}
     </div>
   );
 };
