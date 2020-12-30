@@ -1,11 +1,15 @@
-import { createRef } from "react";
+import { createRef, FunctionComponent } from "react";
 
-export const GameIdWidget = ({ gameId }) => {
+interface Props {
+  gameId: string;
+}
+
+export const GameIdWidget: FunctionComponent<Props> = ({ gameId }) => {
   const ref = createRef<HTMLDivElement>();
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(gameId);
-  }
+  };
 
   return (
     <div

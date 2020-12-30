@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-export type DutchBlitzPlayer = {
+export interface DutchBlitzPlayer {
   blitzScore: number;
   createdAt: number;
   dutchScore: number;
@@ -9,13 +9,13 @@ export type DutchBlitzPlayer = {
   name?: string;
   totalScore: number;
   updatedAt: number;
-};
+}
 
-type Props = {
+interface Props {
   currentUserId?: string;
   place?: number;
   player: DutchBlitzPlayer;
-};
+}
 
 export const DutchBlitzScoreBoardPlayer = forwardRef<HTMLDivElement, Props>(
   ({ currentUserId, place, player }, ref) => (
@@ -41,3 +41,5 @@ export const DutchBlitzScoreBoardPlayer = forwardRef<HTMLDivElement, Props>(
     </div>
   )
 );
+
+DutchBlitzScoreBoardPlayer.displayName = "DutchBlitzScoreBoardPlayer";

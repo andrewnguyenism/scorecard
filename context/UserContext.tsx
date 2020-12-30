@@ -1,20 +1,27 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 import firebase from "../firebase/client";
 
-type UserContextType = {
+interface UserContextType {
   loadingUser: boolean;
-  user: {
-    uid?: string;
-  };
-};
+  user: firebase.User | null;
+}
 
-export const UserContext = createContext<UserContextType>({ loadingUser: true, user: {} });
+export const UserContext = createContext<UserContextType>({
+  loadingUser: true,
+  user: null,
+});
 
-export const useUser = () => useContext(UserContext);
+export const useUser = (): UserContextType => useContext(UserContext);
 
-export default function UserContextComp({ children }) {
-  const [user, setUser] = useState(null);
+const UserContextComp: FunctionComponent = ({ children }) => {
+  const [user, setUser] = useState<firebase.User | null>(null);
   const [loadingUser, setLoadingUser] = useState(true); // Helpful, to update the UI accordingly.
 
   useEffect(() => {
@@ -22,8 +29,10 @@ export default function UserContextComp({ children }) {
       // Listen authenticated user
       try {
         const { user } = await firebase.auth().signInAnonymously();
-        setUser(user);
-        console.log("anonymously logged in", user.uid);
+        if (user) {
+          setUser(user);
+          console.log("anonymously logged in", user.uid);
+        }
       } catch (error) {
         console.error(error);
       } finally {
@@ -38,4 +47,5 @@ export default function UserContextComp({ children }) {
       {user && children}
     </UserContext.Provider>
   );
-}
+};
+export default UserContextComp;

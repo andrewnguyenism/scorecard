@@ -1,6 +1,14 @@
-import { useState } from "react";
+import { FunctionComponent, useState } from "react";
 
-export const DutchBlitzScoreForm = ({ editMode, submitScore }) => {
+interface Props {
+  editMode?: boolean;
+  submitScore?: (dutchScore: number, blitzScore: number) => void;
+}
+
+export const DutchBlitzScoreForm: FunctionComponent<Props> = ({
+  editMode,
+  submitScore,
+}) => {
   const [dutchScore, setDutchScore] = useState(0);
   const [dutchScoreError, setDutchScoreError] = useState(false);
   const [blitzScore, setBlitzScore] = useState(10);
@@ -59,7 +67,7 @@ export const DutchBlitzScoreForm = ({ editMode, submitScore }) => {
       <div className="flex flex-col mb-4 text-center">
         <div className="uppercase font-bold text-gray-900">Score</div>
         <div className="text-lg font-bold">
-          {(dutchScore - blitzScore * 2) || 0}
+          {dutchScore - blitzScore * 2 || 0}
         </div>
       </div>
       <div>
@@ -67,7 +75,9 @@ export const DutchBlitzScoreForm = ({ editMode, submitScore }) => {
           className="block bg-indigo-800 hover:bg-indigo-700 text-white uppercase text-sm font-semibold mx-auto px-4 py-2 rounded-2xl"
           onClick={() => {
             if (!dutchScoreError && !blitzScoreError) {
-              submitScore(dutchScore, blitzScore);
+              if (submitScore) {
+                submitScore(dutchScore, blitzScore);
+              }
               setDutchScore(0);
               setBlitzScore(10);
             }

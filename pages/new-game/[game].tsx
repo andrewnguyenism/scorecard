@@ -16,7 +16,7 @@ export default function NewGame() {
   const [name, setName] = useState("");
   const [status, setStatus] = useState("idle");
 
-  const createGame = async () => {
+  const createGame = async (userId: string) => {
     setStatus("creating");
     const gameId = Math.random().toString(36).substr(2, 5).toUpperCase();
     const roundKey = firebase.database().ref(`rounds/${gameId}`).push().key;
@@ -28,9 +28,9 @@ export default function NewGame() {
           currentRound: roundKey,
           game,
           gameStatus: "playing",
-          owner: user.uid,
+          owner: userId,
           players: {
-            [user.uid]: name,
+            [userId]: name,
           },
           rounds: 1,
           roundStatus: "playing",
@@ -42,7 +42,7 @@ export default function NewGame() {
         createdAt: firebase.database.ServerValue.TIMESTAMP,
         updatedAt: firebase.database.ServerValue.TIMESTAMP,
       }),
-      firebase.database().ref(`players/${gameId}/${user.uid}`).set({
+      firebase.database().ref(`players/${gameId}/${userId}`).set({
         name,
         dutchScore: 0,
         blitzScore: 0,
@@ -50,7 +50,7 @@ export default function NewGame() {
         createdAt: firebase.database.ServerValue.TIMESTAMP,
         updatedAt: firebase.database.ServerValue.TIMESTAMP,
       }),
-      firebase.database().ref(`users/${user.uid}/${gameId}`).set({
+      firebase.database().ref(`users/${userId}/${gameId}`).set({
         name,
         owner: true,
         createdAt: firebase.database.ServerValue.TIMESTAMP,
@@ -60,7 +60,7 @@ export default function NewGame() {
     try {
       await Promise.all(promises);
       setStatus("created");
-      console.log("created game with id:", gameId, ", with owner: ", user.uid);
+      console.log("created game with id:", gameId, ", with owner: ", userId);
       router.push(`/game/${gameId}`);
     } catch (err) {
       setStatus("error");
@@ -82,16 +82,16 @@ export default function NewGame() {
             {game === "dutch-blitz" && (
               <img
                 className="absolute z-0 inset-0 w-full h-full object-cover"
-                src="https://www.dutchblitz.com/wp-content/uploads/dbhed.jpg" 
+                src="https://www.dutchblitz.com/wp-content/uploads/dbhed.jpg"
               />
             )}
             {game === "7-wonders" && (
               <img
                 className="absolute z-0 inset-0 w-full h-full object-cover"
-                src="https://www.7wonders.net//storage/games/7-wonders/sev-content-159243209212Feq.png" 
+                src="https://www.7wonders.net//storage/games/7-wonders/sev-content-159243209212Feq.png"
               />
             )}
-            
+
             <div className="flex-auto relative z-10 px-4 pb-4 pt-24 text-white bg-gradient-to-t from-gray-900">
               <div className="uppercase font-medium text-xl">
                 {game === "dutch-blitz" && "Dutch Blitz"}
@@ -111,12 +111,14 @@ export default function NewGame() {
                 value={name}
               />
             </div>
-            <button
-              className="block bg-indigo-800 hover:bg-indigo-700 text-white uppercase text-sm font-semibold mx-auto px-4 py-2 rounded"
-              onClick={() => createGame()}
-            >
-              Create
-            </button>
+            {user?.uid && (
+              <button
+                className="block bg-indigo-800 hover:bg-indigo-700 text-white uppercase text-sm font-semibold mx-auto px-4 py-2 rounded"
+                onClick={() => createGame(user.uid)}
+              >
+                Create
+              </button>
+            )}
           </div>
         </div>
       </main>

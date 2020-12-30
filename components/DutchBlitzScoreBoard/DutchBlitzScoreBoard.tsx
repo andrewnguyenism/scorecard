@@ -1,10 +1,14 @@
-import { createRef } from "react";
-import { GameIdWidget } from "../../GameIdWidget";
-import { LiveUpdatingRows } from "../../LiveUpdatingRows";
-import { DutchBlitzScoreBoardHeader } from "./DutchBlitzScoreBoardHeader";
-import { DutchBlitzPlayer, DutchBlitzScoreBoardPlayer } from "./DutchBlitzScoreBoardPlayer";
+import { createRef, FunctionComponent } from "react";
 
-type DutchBlitzScoreBoardProps = {
+import { GameIdWidget } from "../GameIdWidget";
+import { LiveUpdatingRows } from "../LiveUpdatingRows";
+import { DutchBlitzScoreBoardHeader } from "./DutchBlitzScoreBoardHeader";
+import {
+  DutchBlitzPlayer,
+  DutchBlitzScoreBoardPlayer,
+} from "./DutchBlitzScoreBoardPlayer";
+
+interface Props {
   blitz: () => void;
   canBlitz: boolean;
   canFinishGame: boolean;
@@ -17,9 +21,9 @@ type DutchBlitzScoreBoardProps = {
   nextRound: () => void;
   players: DutchBlitzPlayer[];
   round: number;
-};
+}
 
-export const DutchBlitzScoreBoard = ({
+export const DutchBlitzScoreBoard: FunctionComponent<Props> = ({
   blitz,
   canBlitz,
   canFinishGame,
@@ -32,7 +36,7 @@ export const DutchBlitzScoreBoard = ({
   nextRound,
   players,
   round,
-}: DutchBlitzScoreBoardProps) => (
+}) => (
   <div className="m-4 rounded-2xl overflow-hidden border-2">
     <div className="border-b border-gray-300 px-4 py-3 text-gray-600 bg-gray-200 text-lg text-center">
       <div className="text-sm font-bold uppercase mb-2">Dutch Blitz</div>

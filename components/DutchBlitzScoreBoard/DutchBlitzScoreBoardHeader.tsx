@@ -1,10 +1,12 @@
-type DutchBlitzScoreBoardHeaderProps = {
-  round: number;
-};
+import { FunctionComponent } from "react";
 
-export const DutchBlitzScoreBoardHeader = ({
+interface Props {
+  round: number;
+}
+
+export const DutchBlitzScoreBoardHeader: FunctionComponent<Props> = ({
   round,
-}: DutchBlitzScoreBoardHeaderProps) => (
+}) => (
   <div className="flex items-center px-4 py-2 text-gray-600 bg-gray-200 text-sm">
     <div className="w-8/12 text-gray-800 font-bold">Round {round}</div>
     <div className="w-12 text-center">Dutch</div>
