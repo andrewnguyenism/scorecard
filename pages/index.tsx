@@ -1,11 +1,11 @@
-import Head from "next/head";
-import Link from "next/link";
+import Head from 'next/head'
+import Link from 'next/link'
 
-import { JoinGameForm } from "../components/JoinGameForm/JoinGameForm";
-import { useUser } from "../context/UserContext";
+import { JoinGameForm } from '@components/JoinGameForm/JoinGameForm'
+import { useUser } from '@context/UserContext'
 
 export default function Home() {
-  const { user } = useUser();
+  const { user } = useUser()
   return (
     <div>
       <Head>
@@ -51,5 +51,5 @@ export default function Home() {
         )}
       </main>
     </div>
-  );
+  )
 }

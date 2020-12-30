@@ -1,21 +1,21 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent } from 'react'
 
 import {
   DutchBlitzPlayer,
   DutchBlitzScoreBoardHeader,
   DutchBlitzScoreBoardPlayer,
-} from "../DutchBlitzScoreBoard";
+} from '../DutchBlitzScoreBoard'
 
 export interface DutchBlitzRound {
-  id?: string;
+  id?: string
   players: {
-    [playerId: string]: DutchBlitzPlayer;
-  };
+    [playerId: string]: DutchBlitzPlayer
+  }
 }
 
 interface Props {
-  currentUserId?: string;
-  rounds: DutchBlitzRound[];
+  currentUserId?: string
+  rounds: DutchBlitzRound[]
 }
 
 export const DutchBlitzRoundTimeline: FunctionComponent<Props> = ({
@@ -30,10 +30,10 @@ export const DutchBlitzRoundTimeline: FunctionComponent<Props> = ({
       rounds.reverse().map((round, index) => {
         if (round.players) {
           const currentUserRound = Object.entries(round.players).find(
-            ([playerId, _]) => playerId === currentUserId
-          );
+            ([playerId]) => playerId === currentUserId
+          )
           if (currentUserRound) {
-            const [_, currentUserScores] = currentUserRound;
+            const [, currentUserScores] = currentUserRound
             return (
               <div
                 className="m-4 rounded-2xl overflow-hidden border-2"
@@ -44,7 +44,7 @@ export const DutchBlitzRoundTimeline: FunctionComponent<Props> = ({
                 />
                 <DutchBlitzScoreBoardPlayer player={currentUserScores} />
               </div>
-            );
+            )
           }
         }
       })
@@ -54,4 +54,4 @@ export const DutchBlitzRoundTimeline: FunctionComponent<Props> = ({
       </div>
     )}
   </div>
-);
+)

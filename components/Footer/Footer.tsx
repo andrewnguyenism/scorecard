@@ -1,5 +1,5 @@
-import { FunctionComponent } from "react";
-import Link from "next/link";
+import { FunctionComponent } from 'react'
+import Link from 'next/link'
 
 export const Footer: FunctionComponent = () => (
   <div className="text-center text-xs py-4 mb-4">
@@ -8,4 +8,4 @@ export const Footer: FunctionComponent = () => (
     </Link>
     <p>Created by Andrew Nguyen in 2020.</p>
   </div>
-);
+)

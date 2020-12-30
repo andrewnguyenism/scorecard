@@ -1,64 +1,61 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
-import Head from "next/head";
-import { useRouter } from "next/router";
+import Head from 'next/head'
+import { useRouter } from 'next/router'
 
-import { useUser } from "../../context/UserContext";
-import firebase from "../../firebase/client";
-import {
-  GameInfo,
-  JoinGameForm,
-} from "../../components/JoinGameForm/JoinGameForm";
+import { useUser } from '@context/UserContext'
+import firebase from '@firebase/client'
+import { GameInfo, JoinGameForm } from '@components/JoinGameForm/JoinGameForm'
 import {
   DutchBlitzPlayer,
   DutchBlitzScoreBoard,
-} from "../../components/DutchBlitzScoreBoard";
-import { DutchBlitzScoreForm } from "../../components/DutchBlitzScoreForm";
+} from '@components/DutchBlitzScoreBoard'
+import { DutchBlitzScoreForm } from '@components/DutchBlitzScoreForm'
 import {
   DutchBlitzRound,
   DutchBlitzRoundTimeline,
-} from "../../components/DutchBlitzRoundTimeline";
+} from '@components/DutchBlitzRoundTimeline'
 
 export default function Game() {
-  const { user } = useUser();
-  const router = useRouter();
+  const { user } = useUser()
+  const router = useRouter()
   const {
     query: { id: gameId },
-  } = router;
+  } = router
 
-  const [status, setStatus] = useState("idle");
-  const [gameInfo, setGameInfo] = useState<GameInfo | null>(null);
+  const [status, setStatus] = useState('idle')
+  const [gameInfo, setGameInfo] = useState<GameInfo | null>(null)
   const [playersObject, setPlayersObject] = useState<{
-    [id: string]: DutchBlitzPlayer;
-  } | null>(null);
-  const [players, setPlayers] = useState<DutchBlitzPlayer[]>([]);
-  const [rounds, setRounds] = useState<DutchBlitzRound[]>([]);
+    [id: string]: DutchBlitzPlayer
+  } | null>(null)
+  const [players, setPlayers] = useState<DutchBlitzPlayer[]>([])
+  const [rounds, setRounds] = useState<DutchBlitzRound[]>([])
   const [lastRoundSubmitted, setLastRoundSubmitted] = useState<string | null>(
     null
-  );
+  )
 
   useEffect(() => {
     const onInfoChange = (snapshot: firebase.database.DataSnapshot) => {
-      const remoteGameInfo = snapshot.val();
+      const remoteGameInfo = snapshot.val()
       if (remoteGameInfo) {
-        setGameInfo(remoteGameInfo);
-        setStatus("loaded");
-      } else if (status === "loaded") {
-        setStatus("closed");
+        setGameInfo(remoteGameInfo)
+        setStatus('loaded')
+      } else if (status === 'loaded') {
+        setStatus('closed')
       } else {
-        setStatus("notexists");
+        setStatus('notexists')
       }
-    };
-    firebase.database().ref(`games/${gameId}`).on("value", onInfoChange);
+    }
+    firebase.database().ref(`games/${gameId}`).on('value', onInfoChange)
     return () =>
-      firebase.database().ref(`games/${gameId}`).off("value", onInfoChange);
-  }, []);
+      firebase.database().ref(`games/${gameId}`).off('value', onInfoChange)
+  }, [])
 
   useEffect(() => {
     const onPlayersChange = (snapshot: firebase.database.DataSnapshot) => {
       const remotePlayers: {
-        [id: string]: DutchBlitzPlayer;
-      } = snapshot.val();
+        [id: string]: DutchBlitzPlayer
+      } = snapshot.val()
       if (remotePlayers) {
         const remotePlayersArray = Object.entries(remotePlayers)
           .map(([id, info]) => ({
@@ -67,60 +64,57 @@ export default function Game() {
           }))
           .sort((playerA, playerB) => {
             return (gameInfo?.rounds && gameInfo?.rounds > 1) ||
-              gameInfo?.roundStatus === "blitz"
+              gameInfo?.roundStatus === 'blitz'
               ? playerB.totalScore - playerA.totalScore
-              : playerA.createdAt - playerB.createdAt;
-          });
-        setPlayers(remotePlayersArray);
-        setPlayersObject(remotePlayers);
+              : playerA.createdAt - playerB.createdAt
+          })
+        setPlayers(remotePlayersArray)
+        setPlayersObject(remotePlayers)
         if (user) {
           setLastRoundSubmitted(
             remotePlayers[user.uid].lastRoundSubmitted || null
-          );
+          )
         }
       }
-    };
-    firebase.database().ref(`players/${gameId}`).on("value", onPlayersChange);
+    }
+    firebase.database().ref(`players/${gameId}`).on('value', onPlayersChange)
     return () =>
-      firebase
-        .database()
-        .ref(`players/${gameId}`)
-        .off("value", onPlayersChange);
-  }, []);
+      firebase.database().ref(`players/${gameId}`).off('value', onPlayersChange)
+  }, [])
 
   useEffect(() => {
     const onRoundsChange = (snapshot: firebase.database.DataSnapshot) => {
       const remoteRounds: {
-        [id: string]: DutchBlitzRound;
-      } = snapshot.val();
+        [id: string]: DutchBlitzRound
+      } = snapshot.val()
       if (remoteRounds) {
         const remoteRoundsArray = Object.entries(remoteRounds).map(
           ([id, info]) => ({
             id,
             ...info,
           })
-        );
-        setRounds(remoteRoundsArray);
+        )
+        setRounds(remoteRoundsArray)
       }
-    };
-    firebase.database().ref(`rounds/${gameId}`).on("value", onRoundsChange);
+    }
+    firebase.database().ref(`rounds/${gameId}`).on('value', onRoundsChange)
     return () =>
-      firebase.database().ref(`rounds/${gameId}`).off("value", onRoundsChange);
-  }, []);
+      firebase.database().ref(`rounds/${gameId}`).off('value', onRoundsChange)
+  }, [])
 
   const blitz = () => {
     if (user) {
       const updates = {
-        [`/games/${gameId}/roundStatus`]: "blitz",
+        [`/games/${gameId}/roundStatus`]: 'blitz',
         [`/players/${gameId}/${user.uid}/blitz`]: true,
-      };
+      }
       try {
-        firebase.database().ref().update(updates);
+        firebase.database().ref().update(updates)
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
     }
-  };
+  }
 
   const submitScore = async (dutch: number, blitz: number) => {
     if (gameInfo && user) {
@@ -131,7 +125,7 @@ export default function Game() {
           dutch - blitz * 2,
         [`/rounds/${gameId}/${gameInfo.currentRound}/players/${user.uid}/updatedAt`]: firebase
           .database.ServerValue.TIMESTAMP,
-      };
+      }
       if (lastRoundSubmitted !== gameInfo.currentRound) {
         updates = {
           ...updates,
@@ -144,13 +138,13 @@ export default function Game() {
           [`/players/${gameId}/${user.uid}/updatedAt`]: firebase.database
             .ServerValue.TIMESTAMP,
           [`/players/${gameId}/${user.uid}/lastRoundSubmitted`]: gameInfo.currentRound,
-        };
+        }
       } else {
         const snapshot = await firebase
           .database()
           .ref(`rounds/${gameId}/${gameInfo.currentRound}/players/${user.uid}`)
-          .once("value");
-        const currentRoundScore = snapshot.val();
+          .once('value')
+        const currentRoundScore = snapshot.val()
         updates = {
           ...updates,
           [`/players/${gameId}/${user.uid}/dutchScore`]:
@@ -167,48 +161,47 @@ export default function Game() {
             (dutch - blitz * 2),
           [`/players/${gameId}/${user.uid}/updatedAt`]: firebase.database
             .ServerValue.TIMESTAMP,
-        };
+        }
       }
       try {
-        firebase.database().ref().update(updates);
+        firebase.database().ref().update(updates)
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
     }
-  };
+  }
 
   const nextRound = () => {
     if (gameInfo) {
-      const newRoundKey = firebase.database().ref(`rounds/${gameId}`).push()
-        .key;
+      const newRoundKey = firebase.database().ref(`rounds/${gameId}`).push().key
       const updates = {
         [`/games/${gameId}/currentRound`]: newRoundKey,
-        [`/games/${gameId}/roundStatus`]: "playing",
+        [`/games/${gameId}/roundStatus`]: 'playing',
         [`/games/${gameId}/rounds`]: gameInfo.rounds + 1,
         [`/rounds/${gameId}/${newRoundKey}`]: {
           createdAt: firebase.database.ServerValue.TIMESTAMP,
           updatedAt: firebase.database.ServerValue.TIMESTAMP,
         },
-      };
+      }
       try {
-        firebase.database().ref().update(updates);
+        firebase.database().ref().update(updates)
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
     }
-  };
+  }
 
   const finishGame = () => {
     const updates = {
-      [`/games/${gameId}/gameStatus`]: "finished",
+      [`/games/${gameId}/gameStatus`]: 'finished',
       [`/games/${gameId}/updatedAt`]: firebase.database.ServerValue.TIMESTAMP,
-    };
-    try {
-      firebase.database().ref().update(updates);
-    } catch (err) {
-      console.error(err);
     }
-  };
+    try {
+      firebase.database().ref().update(updates)
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   return (
     <div>
@@ -219,28 +212,28 @@ export default function Game() {
 
       <main>
         <div className="text-center text-2xl my-4">
-          {status === "notexists" && <p>Game doesn&apos;t exist!</p>}
-          {status === "loading" && <p>Loading game...</p>}
-          {status === "closed" && <p>Game doesn&apos;t exist!</p>}
+          {status === 'notexists' && <p>Game doesn&apos;t exist!</p>}
+          {status === 'loading' && <p>Loading game...</p>}
+          {status === 'closed' && <p>Game doesn&apos;t exist!</p>}
         </div>
 
-        {status === "loaded" && gameInfo && user && (
+        {status === 'loaded' && gameInfo && user && (
           <>
             {gameInfo.players[user.uid] ? (
               <>
                 <DutchBlitzScoreBoard
                   blitz={blitz}
                   canBlitz={
-                    gameInfo.roundStatus === "playing" &&
-                    gameInfo.gameStatus !== "finished"
+                    gameInfo.roundStatus === 'playing' &&
+                    gameInfo.gameStatus !== 'finished'
                   }
-                  canFinishGame={gameInfo.gameStatus !== "finished"}
+                  canFinishGame={gameInfo.gameStatus !== 'finished'}
                   canNextRound={
-                    gameInfo.roundStatus === "blitz" &&
-                    gameInfo.gameStatus !== "finished"
+                    gameInfo.roundStatus === 'blitz' &&
+                    gameInfo.gameStatus !== 'finished'
                   }
                   currentUserId={user.uid}
-                  finished={gameInfo.gameStatus === "finished"}
+                  finished={gameInfo.gameStatus === 'finished'}
                   finishGame={finishGame}
                   gameId={gameId as string}
                   isAdmin={user.uid === gameInfo.owner}
@@ -248,7 +241,7 @@ export default function Game() {
                   players={players}
                   round={gameInfo.rounds}
                 />
-                {gameInfo.roundStatus === "blitz" && (
+                {gameInfo.roundStatus === 'blitz' && (
                   <>
                     <div className="text-center uppercase text-lg font-bold mb-4">
                       Submit Score
@@ -276,5 +269,5 @@ export default function Game() {
         )}
       </main>
     </div>
-  );
+  )
 }

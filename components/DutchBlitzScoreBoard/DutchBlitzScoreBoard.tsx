@@ -1,26 +1,26 @@
-import { createRef, FunctionComponent } from "react";
+import { createRef, FunctionComponent } from 'react'
 
-import { GameIdWidget } from "../GameIdWidget";
-import { LiveUpdatingRows } from "../LiveUpdatingRows";
-import { DutchBlitzScoreBoardHeader } from "./DutchBlitzScoreBoardHeader";
+import { GameIdWidget } from '../GameIdWidget'
+import { LiveUpdatingRows } from '../LiveUpdatingRows'
+import { DutchBlitzScoreBoardHeader } from './DutchBlitzScoreBoardHeader'
 import {
   DutchBlitzPlayer,
   DutchBlitzScoreBoardPlayer,
-} from "./DutchBlitzScoreBoardPlayer";
+} from './DutchBlitzScoreBoardPlayer'
 
 interface Props {
-  blitz: () => void;
-  canBlitz: boolean;
-  canFinishGame: boolean;
-  canNextRound: boolean;
-  currentUserId: string;
-  finished: boolean;
-  finishGame: () => void;
-  gameId: string;
-  isAdmin: boolean;
-  nextRound: () => void;
-  players: DutchBlitzPlayer[];
-  round: number;
+  blitz: () => void
+  canBlitz: boolean
+  canFinishGame: boolean
+  canNextRound: boolean
+  currentUserId: string
+  finished: boolean
+  finishGame: () => void
+  gameId: string
+  isAdmin: boolean
+  nextRound: () => void
+  players: DutchBlitzPlayer[]
+  round: number
 }
 
 export const DutchBlitzScoreBoard: FunctionComponent<Props> = ({
@@ -93,4 +93,4 @@ export const DutchBlitzScoreBoard: FunctionComponent<Props> = ({
       </div>
     )}
   </div>
-);
+)

@@ -1,1 +1,1 @@
-export { GameIdWidget } from "./GameIdWidget";
+export { GameIdWidget } from './GameIdWidget'

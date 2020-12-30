@@ -1,30 +1,30 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useState } from 'react'
 
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router'
 
-import firebase from "../../firebase/client";
-import { GameIdWidget } from "../GameIdWidget";
-import { DutchBlitzPlayer } from "../DutchBlitzScoreBoard";
+import firebase from '../../firebase/client'
+import { GameIdWidget } from '../GameIdWidget'
+import { DutchBlitzPlayer } from '../DutchBlitzScoreBoard'
 
 export interface GameInfo {
-  createdAt: number;
-  currentRound: string;
-  game: string;
-  gameStatus: "playing" | "finished";
-  owner: string;
+  createdAt: number
+  currentRound: string
+  game: string
+  gameStatus: 'playing' | 'finished'
+  owner: string
   players: {
-    [id: string]: string;
-  };
-  roundStatus: string;
-  rounds: number;
-  updatedAt: number;
+    [id: string]: string
+  }
+  roundStatus: string
+  rounds: number
+  updatedAt: number
 }
 
 interface Props {
-  currentUserId: string;
-  gameId?: string;
-  game?: string;
-  playerCount?: number;
+  currentUserId: string
+  gameId?: string
+  game?: string
+  playerCount?: number
 }
 
 export const JoinGameForm: FunctionComponent<Props> = ({
@@ -33,14 +33,14 @@ export const JoinGameForm: FunctionComponent<Props> = ({
   game,
   playerCount,
 }) => {
-  const router = useRouter();
+  const router = useRouter()
 
-  const [status, setStatus] = useState("idle");
-  const [gameCode, setGameCode] = useState("");
-  const [gameInfo, setGameInfo] = useState<GameInfo | null>(null);
-  const [noGameError, setNoGameError] = useState(false);
-  const [joinGameName, setJoinGameName] = useState("");
-  const [duplicateNameError, setDuplicateNameError] = useState(false);
+  const [, setStatus] = useState('idle')
+  const [gameCode, setGameCode] = useState('')
+  const [gameInfo, setGameInfo] = useState<GameInfo | null>(null)
+  const [noGameError, setNoGameError] = useState(false)
+  const [joinGameName, setJoinGameName] = useState('')
+  const [duplicateNameError, setDuplicateNameError] = useState(false)
 
   useEffect(() => {
     const checkGameExists = async () => {
@@ -48,45 +48,45 @@ export const JoinGameForm: FunctionComponent<Props> = ({
         const snapshot = await firebase
           .database()
           .ref(`games/${gameCode}`)
-          .once("value");
+          .once('value')
         if (snapshot.val()) {
-          setGameInfo(snapshot.val());
+          setGameInfo(snapshot.val())
         } else {
-          setNoGameError(true);
+          setNoGameError(true)
         }
       } else {
-        setGameInfo(null);
+        setGameInfo(null)
         if (noGameError) {
-          setNoGameError(false);
+          setNoGameError(false)
         }
       }
-    };
-    checkGameExists();
-  }, [gameCode, noGameError]);
+    }
+    checkGameExists()
+  }, [gameCode, noGameError])
 
   const joinGame = async () => {
-    setStatus("joining");
+    setStatus('joining')
     const gameStatus = await firebase
       .database()
       .ref(`games/${gameCode}/gameStatus`)
-      .once("value");
+      .once('value')
 
     if (!gameId && !gameStatus.val()) {
-      setNoGameError(true);
-      setStatus("error");
-      return false;
+      setNoGameError(true)
+      setStatus('error')
+      return false
     }
 
     const players = await firebase
       .database()
       .ref(`games/${gameId || gameCode}/players`)
-      .once("value");
+      .once('value')
     if (
       Object.values(players.val() as DutchBlitzPlayer).find(
         (player) => player.toLowerCase() === joinGameName.toLowerCase()
       )
     ) {
-      setDuplicateNameError(true);
+      setDuplicateNameError(true)
     } else {
       const updates = {
         [`/games/${gameId || gameCode}/players/${currentUserId}`]: joinGameName,
@@ -103,21 +103,21 @@ export const JoinGameForm: FunctionComponent<Props> = ({
           createdAt: firebase.database.ServerValue.TIMESTAMP,
           updatedAt: firebase.database.ServerValue.TIMESTAMP,
         },
-      };
-      await firebase.database().ref().update(updates);
-      setStatus("joined");
-      router.push(`/game/${gameId || gameCode}`);
+      }
+      await firebase.database().ref().update(updates)
+      setStatus('joined')
+      router.push(`/game/${gameId || gameCode}`)
     }
-  };
+  }
 
   const numberOfPlayers =
-    playerCount || (gameInfo && Object.keys(gameInfo.players).length);
+    playerCount || (gameInfo && Object.keys(gameInfo.players).length)
 
   return (
     <div className="rounded-2xl border-2 overflow-hidden m-4 p-6 text-center">
       {(game || gameInfo?.game) && (
         <div className="font-bold uppercase mb-2">
-          {(game || gameInfo?.game) === "dutch-blitz" && "Dutch Blitz"}
+          {(game || gameInfo?.game) === 'dutch-blitz' && 'Dutch Blitz'}
         </div>
       )}
       {gameId && (
@@ -128,7 +128,7 @@ export const JoinGameForm: FunctionComponent<Props> = ({
       {numberOfPlayers && (
         <div className="mb-4 text-sm">
           {numberOfPlayers} player
-          {`${numberOfPlayers > 1 ? "s" : ""}`} in game
+          {`${numberOfPlayers > 1 ? 's' : ''}`} in game
         </div>
       )}
       {!gameId && (
@@ -141,16 +141,16 @@ export const JoinGameForm: FunctionComponent<Props> = ({
           </label>
           <input
             className={`border py-2 px-3 text-grey-darkest uppercase text-xl text-center font-mono tracking-widest ${
-              noGameError && "border-red-500"
+              noGameError && 'border-red-500'
             }`}
             id="code"
             maxLength={5}
             type="text"
             placeholder="AB123"
             onChange={(event) => {
-              setGameCode(event.currentTarget.value.toUpperCase());
+              setGameCode(event.currentTarget.value.toUpperCase())
               if (noGameError) {
-                setNoGameError(false);
+                setNoGameError(false)
               }
             }}
             value={gameCode}
@@ -171,16 +171,16 @@ export const JoinGameForm: FunctionComponent<Props> = ({
         </label>
         <input
           className={`border py-2 px-3 text-grey-darkest text-center ${
-            duplicateNameError && "border-red-500"
+            duplicateNameError && 'border-red-500'
           }`}
           disabled={!!gameInfo?.players[currentUserId]}
           id="name"
           type="text"
-          placeholder={gameInfo?.players[currentUserId] || "Your Name"}
+          placeholder={gameInfo?.players[currentUserId] || 'Your Name'}
           onChange={(event) => {
-            setJoinGameName(event.currentTarget.value);
+            setJoinGameName(event.currentTarget.value)
             if (duplicateNameError) {
-              setDuplicateNameError(false);
+              setDuplicateNameError(false)
             }
           }}
           value={joinGameName}
@@ -202,5 +202,5 @@ export const JoinGameForm: FunctionComponent<Props> = ({
         </button>
       )}
     </div>
-  );
-};
+  )
+}

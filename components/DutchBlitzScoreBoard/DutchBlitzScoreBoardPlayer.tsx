@@ -1,20 +1,20 @@
-import { forwardRef } from "react";
+import { forwardRef } from 'react'
 
 export interface DutchBlitzPlayer {
-  blitzScore: number;
-  createdAt: number;
-  dutchScore: number;
-  id?: string;
-  lastRoundSubmitted?: string;
-  name?: string;
-  totalScore: number;
-  updatedAt: number;
+  blitzScore: number
+  createdAt: number
+  dutchScore: number
+  id?: string
+  lastRoundSubmitted?: string
+  name?: string
+  totalScore: number
+  updatedAt: number
 }
 
 interface Props {
-  currentUserId?: string;
-  place?: number;
-  player: DutchBlitzPlayer;
+  currentUserId?: string
+  place?: number
+  player: DutchBlitzPlayer
 }
 
 export const DutchBlitzScoreBoardPlayer = forwardRef<HTMLDivElement, Props>(
@@ -40,6 +40,6 @@ export const DutchBlitzScoreBoardPlayer = forwardRef<HTMLDivElement, Props>(
       </div>
     </div>
   )
-);
+)
 
-DutchBlitzScoreBoardPlayer.displayName = "DutchBlitzScoreBoardPlayer";
+DutchBlitzScoreBoardPlayer.displayName = 'DutchBlitzScoreBoardPlayer'

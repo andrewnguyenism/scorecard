@@ -1,18 +1,18 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState } from 'react'
 
 interface Props {
-  editMode?: boolean;
-  submitScore?: (dutchScore: number, blitzScore: number) => void;
+  editMode?: boolean
+  submitScore?: (dutchScore: number, blitzScore: number) => void
 }
 
 export const DutchBlitzScoreForm: FunctionComponent<Props> = ({
   editMode,
   submitScore,
 }) => {
-  const [dutchScore, setDutchScore] = useState(0);
-  const [dutchScoreError, setDutchScoreError] = useState(false);
-  const [blitzScore, setBlitzScore] = useState(10);
-  const [blitzScoreError, setBlitzScoreError] = useState(false);
+  const [dutchScore, setDutchScore] = useState(0)
+  const [dutchScoreError, setDutchScoreError] = useState(false)
+  const [blitzScore, setBlitzScore] = useState(10)
+  const [blitzScoreError, setBlitzScoreError] = useState(false)
 
   return (
     <div className="rounded-2xl border-2 overflow-hidden m-4 p-6">
@@ -22,7 +22,7 @@ export const DutchBlitzScoreForm: FunctionComponent<Props> = ({
         </label>
         <input
           className={`border py-2 px-3 text-grey-darkest ${
-            dutchScoreError && "border-red-500"
+            dutchScoreError && 'border-red-500'
           }`}
           id="dutch"
           type="text"
@@ -30,11 +30,11 @@ export const DutchBlitzScoreForm: FunctionComponent<Props> = ({
           pattern="[0-9]*"
           placeholder="Dutch score"
           onChange={(event) => {
-            const parsedValue = Number.parseInt(event.currentTarget.value, 10);
+            const parsedValue = Number.parseInt(event.currentTarget.value, 10)
             if (Number.isNaN(parsedValue)) {
-              setDutchScoreError(true);
+              setDutchScoreError(true)
             } else {
-              setDutchScore(parsedValue);
+              setDutchScore(parsedValue)
             }
           }}
           value={dutchScore}
@@ -46,7 +46,7 @@ export const DutchBlitzScoreForm: FunctionComponent<Props> = ({
         </label>
         <input
           className={`border py-2 px-3 text-grey-darkest ${
-            blitzScoreError && "border-red-500"
+            blitzScoreError && 'border-red-500'
           }`}
           id="blitz"
           type="text"
@@ -54,11 +54,11 @@ export const DutchBlitzScoreForm: FunctionComponent<Props> = ({
           pattern="[0-9]*"
           placeholder="Blitz score"
           onChange={(event) => {
-            const parsedValue = Number.parseInt(event.currentTarget.value, 10);
+            const parsedValue = Number.parseInt(event.currentTarget.value, 10)
             if (Number.isNaN(parsedValue)) {
-              setBlitzScoreError(true);
+              setBlitzScoreError(true)
             } else {
-              setBlitzScore(parsedValue);
+              setBlitzScore(parsedValue)
             }
           }}
           value={blitzScore}
@@ -76,16 +76,16 @@ export const DutchBlitzScoreForm: FunctionComponent<Props> = ({
           onClick={() => {
             if (!dutchScoreError && !blitzScoreError) {
               if (submitScore) {
-                submitScore(dutchScore, blitzScore);
+                submitScore(dutchScore, blitzScore)
               }
-              setDutchScore(0);
-              setBlitzScore(10);
+              setDutchScore(0)
+              setBlitzScore(10)
             }
           }}
         >
-          {editMode ? "Edit Score" : "Submit"}
+          {editMode ? 'Edit Score' : 'Submit'}
         </button>
       </div>
     </div>
-  );
-};
+  )
+}

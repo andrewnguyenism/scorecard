@@ -1,7 +1,7 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent } from 'react'
 
 interface Props {
-  round: number;
+  round: number
 }
 
 export const DutchBlitzScoreBoardHeader: FunctionComponent<Props> = ({
@@ -13,4 +13,4 @@ export const DutchBlitzScoreBoardHeader: FunctionComponent<Props> = ({
     <div className="w-12 text-center">Blitz</div>
     <div className="w-12 text-center">Total</div>
   </div>
-);
+)
