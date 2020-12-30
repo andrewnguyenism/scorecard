@@ -1,41 +1,29 @@
-import { createRef, forwardRef } from "react";
+import { createRef, FunctionComponent } from "react";
+
 import { GameIdWidget } from "../GameIdWidget";
 import { LiveUpdatingRows } from "../LiveUpdatingRows";
+import { DutchBlitzScoreBoardHeader } from "./DutchBlitzScoreBoardHeader";
+import {
+  DutchBlitzPlayer,
+  DutchBlitzScoreBoardPlayer,
+} from "./DutchBlitzScoreBoardPlayer";
 
-export const DutchBlitzScoreBoardHeader = ({ round }) => (
-  <div className="flex items-center px-4 py-2 text-gray-600 bg-gray-200 text-sm">
-    <div className="w-8/12 text-gray-800 font-bold">Round {round}</div>
-    <div className="w-12 text-center">Dutch</div>
-    <div className="w-12 text-center">Blitz</div>
-    <div className="w-12 text-center">Total</div>
-  </div>
-)
+interface Props {
+  blitz: () => void;
+  canBlitz: boolean;
+  canFinishGame: boolean;
+  canNextRound: boolean;
+  currentUserId: string;
+  finished: boolean;
+  finishGame: () => void;
+  gameId: string;
+  isAdmin: boolean;
+  nextRound: () => void;
+  players: DutchBlitzPlayer[];
+  round: number;
+}
 
-export const DutchBlitzScoreBoardPlayer = forwardRef(({ currentUserId, place, player }, ref) => (
-  <div
-    className="flex items-center px-4 py-2"    
-    ref={ref}
-  >
-    <div className="flex items-center w-8/12">
-      {place && place >= 0 && place <= 2 && (
-        <span className="w-8 font-bold">
-          {place == 1 && <span>🥇</span>}
-          {place == 2 && <span>🥈</span>}
-          {place == 3 && <span>🥉</span>}
-        </span>
-      )}
-      {player.name}
-      {currentUserId && player.id === currentUserId && <span className="text-xs ml-1">(You)</span>}
-    </div>
-    <div className="w-12 text-center">{player.dutchScore || 0}</div>
-    <div className="w-12 text-center">{player.blitzScore || 0}</div>
-    <div className="w-12 text-center text-lg font-bold">
-      {player.totalScore || 0}
-    </div>
-  </div>
-));
-
-export const DutchBlitzScoreBoard = ({
+export const DutchBlitzScoreBoard: FunctionComponent<Props> = ({
   blitz,
   canBlitz,
   canFinishGame,
@@ -53,13 +41,25 @@ export const DutchBlitzScoreBoard = ({
     <div className="border-b border-gray-300 px-4 py-3 text-gray-600 bg-gray-200 text-lg text-center">
       <div className="text-sm font-bold uppercase mb-2">Dutch Blitz</div>
       <GameIdWidget gameId={gameId} />
-      {finished && <div className="text-xs font-bold uppercase mt-2">Finished</div>}
-      {!finished && <div className="text-xs text-red-800 font-bold uppercase mt-2">Live</div>}
+      {finished && (
+        <div className="text-xs font-bold uppercase mt-2">Finished</div>
+      )}
+      {!finished && (
+        <div className="text-xs text-red-800 font-bold uppercase mt-2">
+          Live
+        </div>
+      )}
     </div>
     <DutchBlitzScoreBoardHeader round={round} />
     <LiveUpdatingRows>
-      {players.map((player, index,) => (
-        <DutchBlitzScoreBoardPlayer currentUserId={currentUserId} key={player.id} player={player} place={index + 1} ref={createRef()} />
+      {players.map((player, index) => (
+        <DutchBlitzScoreBoardPlayer
+          currentUserId={currentUserId}
+          key={player.id}
+          player={player}
+          place={index + 1}
+          ref={createRef()}
+        />
       ))}
     </LiveUpdatingRows>
     {canBlitz && (

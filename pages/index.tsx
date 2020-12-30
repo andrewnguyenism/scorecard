@@ -1,8 +1,11 @@
 import Head from "next/head";
 import Link from "next/link";
+
 import { JoinGameForm } from "../components/JoinGameForm/JoinGameForm";
+import { useUser } from "../context/UserContext";
 
 export default function Home() {
+  const { user } = useUser();
   return (
     <div>
       <Head>
@@ -17,7 +20,7 @@ export default function Home() {
             <div className="w-36 relative overflow-hidden">
               <img
                 className="absolute inset-0 w-full h-full object-cover transition duration-200 transform group-hover:scale-110"
-                src="https://www.dutchblitz.com/wp-content/uploads/dbhed.jpg" 
+                src="https://www.dutchblitz.com/wp-content/uploads/dbhed.jpg"
               />
             </div>
             <div className="flex-auto py-12 text-center group-hover:bg-gray-100">
@@ -31,7 +34,7 @@ export default function Home() {
             <div className="w-36 relative overflow-hidden">
               <img
                 className="absolute inset-0 w-full h-full object-cover transition duration-200 transform group-hover:scale-110"
-                src="https://www.7wonders.net//storage/games/7-wonders/sev-content-159243209212Feq.png" 
+                src="https://www.7wonders.net//storage/games/7-wonders/sev-content-159243209212Feq.png"
               />
             </div>
             <div className="flex-auto py-12 text-center group-hover:bg-gray-100">
@@ -40,8 +43,12 @@ export default function Home() {
             </div>
           </a>
         </Link>
-        <div className="text-2xl text-center uppercase mb-4">Join Game</div>
-        <JoinGameForm />
+        {user && (
+          <>
+            <div className="text-2xl text-center uppercase mb-4">Join Game</div>
+            <JoinGameForm currentUserId={user.uid} />
+          </>
+        )}
       </main>
     </div>
   );
