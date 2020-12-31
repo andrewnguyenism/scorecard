@@ -30,11 +30,16 @@ export const DutchBlitzScoreForm: FunctionComponent<Props> = ({
           pattern="[0-9]*"
           placeholder="Dutch score"
           onChange={(event) => {
-            const parsedValue = Number.parseInt(event.currentTarget.value, 10)
-            if (Number.isNaN(parsedValue)) {
-              setDutchScoreError(true)
+            setDutchScoreError(false)
+            if (event.currentTarget.value !== "") {
+              const parsedValue = Number.parseInt(event.currentTarget.value, 10)
+              if (Number.isNaN(parsedValue)) {
+                setDutchScoreError(true)
+              } else {
+                setDutchScore(parsedValue)
+              }
             } else {
-              setDutchScore(parsedValue)
+              setDutchScore(0)
             }
           }}
           value={dutchScore}
@@ -54,11 +59,16 @@ export const DutchBlitzScoreForm: FunctionComponent<Props> = ({
           pattern="[0-9]*"
           placeholder="Blitz score"
           onChange={(event) => {
-            const parsedValue = Number.parseInt(event.currentTarget.value, 10)
-            if (Number.isNaN(parsedValue)) {
-              setBlitzScoreError(true)
+            setBlitzScoreError(false)
+            if (event.currentTarget.value !== "") {
+              const parsedValue = Number.parseInt(event.currentTarget.value, 10)
+              if (Number.isNaN(parsedValue)) {
+                setBlitzScoreError(true)
+              } else {
+                setBlitzScore(parsedValue)
+              }
             } else {
-              setBlitzScore(parsedValue)
+              setBlitzScore(0)
             }
           }}
           value={blitzScore}
