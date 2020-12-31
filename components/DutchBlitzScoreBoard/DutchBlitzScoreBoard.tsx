@@ -45,7 +45,7 @@ export const DutchBlitzScoreBoard: FunctionComponent<Props> = ({
         <div className="text-xs font-bold uppercase mt-2">Finished</div>
       )}
       {!finished && (
-        <div className="text-xs text-red-800 font-bold uppercase mt-2">
+        <div className="animate-pulse text-xs text-red-800 font-bold uppercase mt-2">
           Live
         </div>
       )}
