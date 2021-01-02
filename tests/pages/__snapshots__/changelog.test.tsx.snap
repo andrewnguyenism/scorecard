@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Changelog page renders page 1`] = `
+<DocumentFragment>
+  <div>
+    <main>
+      <div
+        class="text-2xl mt-4 text-center uppercase mb-4"
+      >
+        Changelog
+      </div>
+      <div
+        class="rounded border-2 m-4 p-4"
+      >
+        <div
+          class="text-xl font-bold"
+        >
+          Version 3
+        </div>
+        <div
+          class="text-sm"
+        >
+          31/12/2020
+        </div>
+        <ul
+          class="list-disc ml-4 mt-4"
+        >
+          <li>
+            Fixed Dutch Blitz Score Submission not allowing "blank" values.
+          </li>
+          <li>
+            Pulse the "LIVE" indicator on the scoreboard.
+          </li>
+        </ul>
+      </div>
+      <div
+        class="rounded border-2 m-4 p-4"
+      >
+        <div
+          class="text-xl font-bold"
+        >
+          Version 2
+        </div>
+        <div
+          class="text-sm"
+        >
+          28/12/2020
+        </div>
+        <ul
+          class="list-disc ml-4 mt-4"
+        >
+          <li>
+            Fixed Join Game functionality on homepage.
+          </li>
+        </ul>
+      </div>
+      <div
+        class="rounded border-2 m-4 p-4"
+      >
+        <div
+          class="text-xl font-bold"
+        >
+          Version 1
+        </div>
+        <div
+          class="text-sm"
+        >
+          27/12/2020
+        </div>
+        <ul
+          class="list-disc ml-4 mt-4"
+        >
+          <li>
+            Added Dutch Blitz scoring.
+          </li>
+        </ul>
+      </div>
+    </main>
+  </div>
+</DocumentFragment>
+`;

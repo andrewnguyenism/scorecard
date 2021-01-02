@@ -45,8 +45,8 @@ const UserContextComp: FunctionComponent = ({ children }) => {
 
   return (
     <UserContext.Provider value={{ loadingUser, user }}>
-      {user && children}
+      {children}
     </UserContext.Provider>
   )
 }
-export default UserContextComp
+export { UserContextComp as UserProvider }

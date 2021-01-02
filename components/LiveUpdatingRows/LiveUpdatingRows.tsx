@@ -9,7 +9,7 @@ import React, {
   useState,
 } from 'react'
 
-import { usePrevious } from '../../hooks/usePrevious'
+import { usePrevious } from '@/hooks/usePrevious'
 
 interface BoundingBoxes {
   [id: string]: DOMRect

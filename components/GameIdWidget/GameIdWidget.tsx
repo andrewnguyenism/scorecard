@@ -1,12 +1,10 @@
-import { createRef, FunctionComponent } from 'react'
+import { FunctionComponent } from 'react'
 
 interface Props {
   gameId: string
 }
 
 export const GameIdWidget: FunctionComponent<Props> = ({ gameId }) => {
-  const ref = createRef<HTMLDivElement>()
-
   const copyToClipboard = () => {
     navigator.clipboard.writeText(gameId)
   }
@@ -15,7 +13,6 @@ export const GameIdWidget: FunctionComponent<Props> = ({ gameId }) => {
     <div
       className="cursor-pointer rounded-2xl bg-gray-300 hover:bg-gray-400 px-3 inline-flex items-center font-bold"
       onClick={copyToClipboard}
-      ref={ref}
       role="button"
     >
       <span className="text-gray-800 text-xl font-mono font-bold tracking-widest">

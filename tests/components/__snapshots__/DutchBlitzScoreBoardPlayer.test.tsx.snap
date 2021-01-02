@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DutchBlitzScoreBoardPlayer component renders 1`] = `
+<DocumentFragment>
+  <div
+    class="flex items-center px-4 py-2"
+  >
+    <div
+      class="flex items-center w-8/12"
+    >
+      Player
+    </div>
+    <div
+      class="w-12 text-center"
+    >
+      15
+    </div>
+    <div
+      class="w-12 text-center"
+    >
+      10
+    </div>
+    <div
+      class="w-12 text-center text-lg font-bold"
+    >
+      5
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`DutchBlitzScoreBoardPlayer component renders with optional props 1`] = `
+<DocumentFragment>
+  <div
+    class="flex items-center px-4 py-2"
+  >
+    <div
+      class="flex items-center w-8/12"
+    >
+      <span
+        class="w-8 font-bold"
+      >
+        <span>
+          🥇
+        </span>
+      </span>
+      Player
+      <span
+        class="text-xs ml-1"
+      >
+        (You)
+      </span>
+    </div>
+    <div
+      class="w-12 text-center"
+    >
+      15
+    </div>
+    <div
+      class="w-12 text-center"
+    >
+      10
+    </div>
+    <div
+      class="w-12 text-center text-lg font-bold"
+    >
+      5
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DutchBlitzScoreBoardHeader component renders 1`] = `
+<DocumentFragment>
+  <div
+    class="flex items-center px-4 py-2 text-gray-600 bg-gray-200 text-sm"
+  >
+    <div
+      class="w-8/12 text-gray-800 font-bold"
+    >
+      Round 7
+    </div>
+    <div
+      class="w-12 text-center"
+    >
+      Dutch
+    </div>
+    <div
+      class="w-12 text-center"
+    >
+      Blitz
+    </div>
+    <div
+      class="w-12 text-center"
+    >
+      Total
+    </div>
+  </div>
+</DocumentFragment>
+`;

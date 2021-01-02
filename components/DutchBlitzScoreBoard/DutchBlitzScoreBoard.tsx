@@ -1,12 +1,11 @@
 import { createRef, FunctionComponent } from 'react'
 
+import { DutchBlitzPlayerInfo } from '@/firebase/player'
+
 import { GameIdWidget } from '../GameIdWidget'
 import { LiveUpdatingRows } from '../LiveUpdatingRows'
 import { DutchBlitzScoreBoardHeader } from './DutchBlitzScoreBoardHeader'
-import {
-  DutchBlitzPlayer,
-  DutchBlitzScoreBoardPlayer,
-} from './DutchBlitzScoreBoardPlayer'
+import { DutchBlitzScoreBoardPlayer } from './DutchBlitzScoreBoardPlayer'
 
 interface Props {
   blitz: () => void
@@ -19,7 +18,7 @@ interface Props {
   gameId: string
   isAdmin: boolean
   nextRound: () => void
-  players: DutchBlitzPlayer[]
+  players: Array<DutchBlitzPlayerInfo & { id: string }>
   round: number
 }
 
@@ -54,11 +53,14 @@ export const DutchBlitzScoreBoard: FunctionComponent<Props> = ({
     <LiveUpdatingRows>
       {players.map((player, index) => (
         <DutchBlitzScoreBoardPlayer
-          currentUserId={currentUserId}
+          blitzScore={player.blitzScore}
+          dutchScore={player.dutchScore}
           key={player.id}
-          player={player}
+          name={player.name}
+          playerIsCurrentUser={currentUserId === player.id}
           place={index + 1}
           ref={createRef()}
+          totalScore={player.totalScore}
         />
       ))}
     </LiveUpdatingRows>

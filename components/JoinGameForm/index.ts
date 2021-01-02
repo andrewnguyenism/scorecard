@@ -1,2 +1,1 @@
-export { JoinGameForm } from './JoinGameForm'
-export type { GameInfo } from './JoinGameForm'
+export { JoinGameFormError, JoinGameForm } from './JoinGameForm'

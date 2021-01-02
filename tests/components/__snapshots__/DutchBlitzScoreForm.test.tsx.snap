@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DutchBlitzScoreForm component renders 1`] = `
+<DocumentFragment>
+  <div
+    class="rounded-2xl border-2 overflow-hidden m-4 p-6"
+  >
+    <div
+      class="flex flex-col mb-4"
+    >
+      <label
+        class="uppercase font-bold text-gray-900"
+        for="dutch"
+      >
+        Dutch Score
+      </label>
+      <input
+        class="border py-2 px-3 text-grey-darkest false"
+        id="dutch"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        placeholder="Dutch score"
+        type="text"
+        value="0"
+      />
+    </div>
+    <div
+      class="flex flex-col mb-4"
+    >
+      <label
+        class="uppercase font-bold text-gray-900"
+        for="blitz"
+      >
+        Blitz Score
+      </label>
+      <input
+        class="border py-2 px-3 text-grey-darkest false"
+        id="blitz"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        placeholder="Blitz score"
+        type="text"
+        value="10"
+      />
+    </div>
+    <div
+      class="flex flex-col mb-4 text-center"
+    >
+      <div
+        class="uppercase font-bold text-gray-900"
+      >
+        Score
+      </div>
+      <div
+        class="text-lg font-bold"
+      >
+        -20
+      </div>
+    </div>
+    <div>
+      <button
+        class="block bg-indigo-800 hover:bg-indigo-700 text-white uppercase text-sm font-semibold mx-auto px-4 py-2 rounded-2xl"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`DutchBlitzScoreForm component renders in edit mode 1`] = `
+<DocumentFragment>
+  <div
+    class="rounded-2xl border-2 overflow-hidden m-4 p-6"
+  >
+    <div
+      class="flex flex-col mb-4"
+    >
+      <label
+        class="uppercase font-bold text-gray-900"
+        for="dutch"
+      >
+        Dutch Score
+      </label>
+      <input
+        class="border py-2 px-3 text-grey-darkest false"
+        id="dutch"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        placeholder="Dutch score"
+        type="text"
+        value="0"
+      />
+    </div>
+    <div
+      class="flex flex-col mb-4"
+    >
+      <label
+        class="uppercase font-bold text-gray-900"
+        for="blitz"
+      >
+        Blitz Score
+      </label>
+      <input
+        class="border py-2 px-3 text-grey-darkest false"
+        id="blitz"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        placeholder="Blitz score"
+        type="text"
+        value="10"
+      />
+    </div>
+    <div
+      class="flex flex-col mb-4 text-center"
+    >
+      <div
+        class="uppercase font-bold text-gray-900"
+      >
+        Score
+      </div>
+      <div
+        class="text-lg font-bold"
+      >
+        -20
+      </div>
+    </div>
+    <div>
+      <button
+        class="block bg-indigo-800 hover:bg-indigo-700 text-white uppercase text-sm font-semibold mx-auto px-4 py-2 rounded-2xl"
+      >
+        Edit Score
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

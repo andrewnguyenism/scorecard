@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-export default function Changelog() {
+export default function Changelog(): JSX.Element {
   return (
     <div>
       <Head>
