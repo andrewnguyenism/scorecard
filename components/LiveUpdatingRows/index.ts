@@ -1,1 +1,1 @@
-export { LiveUpdatingRows } from "./LiveUpdatingRows";
+export { LiveUpdatingRows } from './LiveUpdatingRows'

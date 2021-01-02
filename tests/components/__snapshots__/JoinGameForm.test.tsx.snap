@@ -1,0 +1,226 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JoinGameForm component renders when duplicate name error is passed 1`] = `
+<DocumentFragment>
+  <div
+    class="rounded-2xl border-2 overflow-hidden m-4 p-6 text-center"
+  >
+    <div
+      class="flex flex-col mb-4"
+    >
+      <label
+        class="uppercase font-bold text-gray-900 mb-2"
+        for="code"
+      >
+        Game Code
+      </label>
+      <input
+        class="border py-2 px-3 text-grey-darkest uppercase text-xl text-center font-mono tracking-widest false"
+        id="code"
+        maxlength="5"
+        placeholder="AB123"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      class="flex flex-col mb-4"
+    >
+      <label
+        class="uppercase font-bold text-gray-900 mb-2"
+        for="name"
+      >
+        Display Name
+      </label>
+      <input
+        class="border py-2 px-3 text-grey-darkest text-center border-red-500"
+        id="name"
+        placeholder="Your Name"
+        type="text"
+        value=""
+      />
+      <div
+        class="text-sm mt-1"
+      >
+        Name already used, try another one.
+      </div>
+    </div>
+    <button
+      class="block bg-indigo-800 hover:bg-indigo-700 text-white uppercase text-sm font-semibold mx-auto px-4 py-2 rounded-2xl"
+    >
+      Join
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`JoinGameForm component renders when gameId, game, and playerCount is passed 1`] = `
+<DocumentFragment>
+  <div
+    class="rounded-2xl border-2 overflow-hidden m-4 p-6 text-center"
+  >
+    <div
+      class="font-bold uppercase mb-2"
+    >
+      Dutch Blitz
+    </div>
+    <div
+      class="mb-4 text-lg"
+    >
+      <div
+        class="cursor-pointer rounded-2xl bg-gray-300 hover:bg-gray-400 px-3 inline-flex items-center font-bold"
+        role="button"
+      >
+        <span
+          class="text-gray-800 text-xl font-mono font-bold tracking-widest"
+        >
+          AB123
+        </span>
+        <svg
+          class="h-4 w-4 ml-0.5"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8 2a1 1 0 000 2h2a1 1 0 100-2H8z"
+          />
+          <path
+            d="M3 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v6h-4.586l1.293-1.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L10.414 13H15v3a2 2 0 01-2 2H5a2 2 0 01-2-2V5zM15 11h2a1 1 0 110 2h-2v-2z"
+          />
+        </svg>
+      </div>
+    </div>
+    <div
+      class="mb-4 text-sm"
+    >
+      4 players in game
+    </div>
+    <div
+      class="flex flex-col mb-4"
+    >
+      <label
+        class="uppercase font-bold text-gray-900 mb-2"
+        for="name"
+      >
+        Display Name
+      </label>
+      <input
+        class="border py-2 px-3 text-grey-darkest text-center false"
+        id="name"
+        placeholder="Your Name"
+        type="text"
+        value=""
+      />
+    </div>
+    <button
+      class="block bg-indigo-800 hover:bg-indigo-700 text-white uppercase text-sm font-semibold mx-auto px-4 py-2 rounded-2xl"
+    >
+      Join
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`JoinGameForm component renders when no game error is passed 1`] = `
+<DocumentFragment>
+  <div
+    class="rounded-2xl border-2 overflow-hidden m-4 p-6 text-center"
+  >
+    <div
+      class="flex flex-col mb-4"
+    >
+      <label
+        class="uppercase font-bold text-gray-900 mb-2"
+        for="code"
+      >
+        Game Code
+      </label>
+      <input
+        class="border py-2 px-3 text-grey-darkest uppercase text-xl text-center font-mono tracking-widest false"
+        id="code"
+        maxlength="5"
+        placeholder="AB123"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      class="flex flex-col mb-4"
+    >
+      <label
+        class="uppercase font-bold text-gray-900 mb-2"
+        for="name"
+      >
+        Display Name
+      </label>
+      <input
+        class="border py-2 px-3 text-grey-darkest text-center border-red-500"
+        id="name"
+        placeholder="Your Name"
+        type="text"
+        value=""
+      />
+      <div
+        class="text-sm mt-1"
+      >
+        Name already used, try another one.
+      </div>
+    </div>
+    <button
+      class="block bg-indigo-800 hover:bg-indigo-700 text-white uppercase text-sm font-semibold mx-auto px-4 py-2 rounded-2xl"
+    >
+      Join
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`JoinGameForm component renders when no gameId is passed 1`] = `
+<DocumentFragment>
+  <div
+    class="rounded-2xl border-2 overflow-hidden m-4 p-6 text-center"
+  >
+    <div
+      class="flex flex-col mb-4"
+    >
+      <label
+        class="uppercase font-bold text-gray-900 mb-2"
+        for="code"
+      >
+        Game Code
+      </label>
+      <input
+        class="border py-2 px-3 text-grey-darkest uppercase text-xl text-center font-mono tracking-widest false"
+        id="code"
+        maxlength="5"
+        placeholder="AB123"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      class="flex flex-col mb-4"
+    >
+      <label
+        class="uppercase font-bold text-gray-900 mb-2"
+        for="name"
+      >
+        Display Name
+      </label>
+      <input
+        class="border py-2 px-3 text-grey-darkest text-center false"
+        id="name"
+        placeholder="Your Name"
+        type="text"
+        value=""
+      />
+    </div>
+    <button
+      class="block bg-indigo-800 hover:bg-indigo-700 text-white uppercase text-sm font-semibold mx-auto px-4 py-2 rounded-2xl"
+    >
+      Join
+    </button>
+  </div>
+</DocumentFragment>
+`;

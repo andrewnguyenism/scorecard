@@ -1,1 +1,1 @@
-export { DutchBlitzScoreForm } from "./DutchBlitzScoreForm";
+export { DutchBlitzScoreForm } from './DutchBlitzScoreForm'

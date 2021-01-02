@@ -1,11 +1,20 @@
-import Head from "next/head";
-import Link from "next/link";
+import { useState } from 'react'
 
-import { JoinGameForm } from "../components/JoinGameForm/JoinGameForm";
-import { useUser } from "../context/UserContext";
+import Head from 'next/head'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
-export default function Home() {
-  const { user } = useUser();
+import { JoinGameForm, JoinGameFormError } from '@/components/JoinGameForm'
+import { useUser } from '@/context/UserContext'
+import { GameInfo, getGameInfo, getGamePlayers, joinGame } from '@/firebase/game'
+
+export default function Home(): JSX.Element {
+  const { user } = useUser()
+  const router = useRouter()
+
+  const [joinGameInfo, setJoinGameInfo] = useState<GameInfo | null>(null)
+  const [joinGameError, setJoinGameError] = useState<JoinGameFormError | null>(null)
+
   return (
     <div>
       <Head>
@@ -46,10 +55,44 @@ export default function Home() {
         {user && (
           <>
             <div className="text-2xl text-center uppercase mb-4">Join Game</div>
-            <JoinGameForm currentUserId={user.uid} />
+            <JoinGameForm
+              clearError={() => setJoinGameError(null)}
+              error={joinGameError}
+              game={joinGameInfo?.game}
+              onGameCodeEntered={async (gameCode) => {
+                const gameInfo = await getGameInfo(gameCode)
+                if (gameInfo) {
+                  setJoinGameInfo(gameInfo)
+                } else {
+                  setJoinGameError(JoinGameFormError.GameNotExists)
+                }
+              }}
+              onJoinGameClicked={async (name, gameCode) => {
+                if (gameCode) {
+                  const players = await getGamePlayers(gameCode)
+                  if (
+                    players && Object.values(players).find(
+                      (playerName) => playerName.toLowerCase() === name.toLowerCase()
+                    )
+                  ) {
+                    setJoinGameError(JoinGameFormError.DuplicateName)
+                  } else {
+                    const joinedGame = await joinGame({
+                      gameId: gameCode,
+                      name,
+                      userId: user.uid,
+                    })
+                    if (joinedGame) {
+                      router.push(`/game/${gameCode}`)
+                    }
+                  }
+                }
+              }}
+              playerCount={joinGameInfo ? Object.keys(joinGameInfo?.players).length : undefined}
+            />
           </>
         )}
       </main>
     </div>
-  );
+  )
 }

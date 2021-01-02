@@ -1,21 +1,14 @@
-import { FunctionComponent } from "react";
+import { DutchBlitzRoundInfo } from '@/firebase/round'
+import { FunctionComponent } from 'react'
 
 import {
-  DutchBlitzPlayer,
   DutchBlitzScoreBoardHeader,
   DutchBlitzScoreBoardPlayer,
-} from "../DutchBlitzScoreBoard";
-
-export interface DutchBlitzRound {
-  id?: string;
-  players: {
-    [playerId: string]: DutchBlitzPlayer;
-  };
-}
+} from '../DutchBlitzScoreBoard'
 
 interface Props {
-  currentUserId?: string;
-  rounds: DutchBlitzRound[];
+  currentUserId?: string
+  rounds: Array<DutchBlitzRoundInfo & { id: string }>
 }
 
 export const DutchBlitzRoundTimeline: FunctionComponent<Props> = ({
@@ -30,10 +23,10 @@ export const DutchBlitzRoundTimeline: FunctionComponent<Props> = ({
       rounds.reverse().map((round, index) => {
         if (round.players) {
           const currentUserRound = Object.entries(round.players).find(
-            ([playerId, _]) => playerId === currentUserId
-          );
+            ([playerId]) => playerId === currentUserId
+          )
           if (currentUserRound) {
-            const [_, currentUserScores] = currentUserRound;
+            const [, currentUserScores] = currentUserRound
             return (
               <div
                 className="m-4 rounded-2xl overflow-hidden border-2"
@@ -42,9 +35,14 @@ export const DutchBlitzRoundTimeline: FunctionComponent<Props> = ({
                 <DutchBlitzScoreBoardHeader
                   round={Math.abs(index - Object.keys(rounds).length)}
                 />
-                <DutchBlitzScoreBoardPlayer player={currentUserScores} />
+                <DutchBlitzScoreBoardPlayer
+                  blitzScore={currentUserScores.blitzScore}
+                  dutchScore={currentUserScores.dutchScore}
+                  name=""
+                  totalScore={currentUserScores.totalScore}
+                />
               </div>
-            );
+            )
           }
         }
       })
@@ -54,4 +52,4 @@ export const DutchBlitzRoundTimeline: FunctionComponent<Props> = ({
       </div>
     )}
   </div>
-);
+)

@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer component renders component 1`] = `
+<DocumentFragment>
+  <div
+    class="text-center text-xs py-4 mb-4"
+  >
+    <a
+      class="block mb-2 underline"
+      href="/changelog"
+    >
+      v3
+    </a>
+    <p>
+      Created by Andrew Nguyen in 2020.
+    </p>
+  </div>
+</DocumentFragment>
+`;

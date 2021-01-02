@@ -1,26 +1,25 @@
-import { createRef, FunctionComponent } from "react";
+import { createRef, FunctionComponent } from 'react'
 
-import { GameIdWidget } from "../GameIdWidget";
-import { LiveUpdatingRows } from "../LiveUpdatingRows";
-import { DutchBlitzScoreBoardHeader } from "./DutchBlitzScoreBoardHeader";
-import {
-  DutchBlitzPlayer,
-  DutchBlitzScoreBoardPlayer,
-} from "./DutchBlitzScoreBoardPlayer";
+import { DutchBlitzPlayerInfo } from '@/firebase/player'
+
+import { GameIdWidget } from '../GameIdWidget'
+import { LiveUpdatingRows } from '../LiveUpdatingRows'
+import { DutchBlitzScoreBoardHeader } from './DutchBlitzScoreBoardHeader'
+import { DutchBlitzScoreBoardPlayer } from './DutchBlitzScoreBoardPlayer'
 
 interface Props {
-  blitz: () => void;
-  canBlitz: boolean;
-  canFinishGame: boolean;
-  canNextRound: boolean;
-  currentUserId: string;
-  finished: boolean;
-  finishGame: () => void;
-  gameId: string;
-  isAdmin: boolean;
-  nextRound: () => void;
-  players: DutchBlitzPlayer[];
-  round: number;
+  blitz: () => void
+  canBlitz: boolean
+  canFinishGame: boolean
+  canNextRound: boolean
+  currentUserId: string
+  finished: boolean
+  finishGame: () => void
+  gameId: string
+  isAdmin: boolean
+  nextRound: () => void
+  players: Array<DutchBlitzPlayerInfo & { id: string }>
+  round: number
 }
 
 export const DutchBlitzScoreBoard: FunctionComponent<Props> = ({
@@ -45,7 +44,7 @@ export const DutchBlitzScoreBoard: FunctionComponent<Props> = ({
         <div className="text-xs font-bold uppercase mt-2">Finished</div>
       )}
       {!finished && (
-        <div className="text-xs text-red-800 font-bold uppercase mt-2">
+        <div className="animate-pulse text-xs text-red-800 font-bold uppercase mt-2">
           Live
         </div>
       )}
@@ -54,11 +53,14 @@ export const DutchBlitzScoreBoard: FunctionComponent<Props> = ({
     <LiveUpdatingRows>
       {players.map((player, index) => (
         <DutchBlitzScoreBoardPlayer
-          currentUserId={currentUserId}
+          blitzScore={player.blitzScore}
+          dutchScore={player.dutchScore}
           key={player.id}
-          player={player}
+          name={player.name}
+          playerIsCurrentUser={currentUserId === player.id}
           place={index + 1}
           ref={createRef()}
+          totalScore={player.totalScore}
         />
       ))}
     </LiveUpdatingRows>
@@ -93,4 +95,4 @@ export const DutchBlitzScoreBoard: FunctionComponent<Props> = ({
       </div>
     )}
   </div>
-);
+)

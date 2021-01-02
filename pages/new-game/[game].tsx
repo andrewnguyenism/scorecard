@@ -1,72 +1,37 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-import Head from "next/head";
-import { useRouter } from "next/router";
+import Head from 'next/head'
+import { useRouter } from 'next/router'
 
-import { useUser } from "../../context/UserContext";
-import firebase from "../../firebase/client";
+import { useUser } from '@/context/UserContext'
+import { createGame, ScorecardGame } from '@/firebase/game'
 
-export default function NewGame() {
-  const { user } = useUser();
-  const router = useRouter();
+export default function NewGame(): JSX.Element {
+  const { user } = useUser()
+  const router = useRouter()
   const {
     query: { game },
-  } = router;
+  } = router
 
-  const [name, setName] = useState("");
-  const [status, setStatus] = useState("idle");
+  const [name, setName] = useState('')
+  const [, setStatus] = useState('idle')
 
-  const createGame = async (userId: string) => {
-    setStatus("creating");
-    const gameId = Math.random().toString(36).substr(2, 5).toUpperCase();
-    const roundKey = firebase.database().ref(`rounds/${gameId}`).push().key;
-    const promises = [
-      firebase
-        .database()
-        .ref(`games/${gameId}`)
-        .set({
-          currentRound: roundKey,
-          game,
-          gameStatus: "playing",
-          owner: userId,
-          players: {
-            [userId]: name,
-          },
-          rounds: 1,
-          roundStatus: "playing",
-          voteStatus: null,
-          createdAt: firebase.database.ServerValue.TIMESTAMP,
-          updatedAt: firebase.database.ServerValue.TIMESTAMP,
-        }),
-      firebase.database().ref(`rounds/${gameId}/${roundKey}`).set({
-        createdAt: firebase.database.ServerValue.TIMESTAMP,
-        updatedAt: firebase.database.ServerValue.TIMESTAMP,
-      }),
-      firebase.database().ref(`players/${gameId}/${userId}`).set({
+  const onCreateClick = async () => {
+    setStatus('creating')
+    if (game === ScorecardGame.DutchBlitz && user) {
+      const gameId = await createGame({
+        game,
         name,
-        dutchScore: 0,
-        blitzScore: 0,
-        totalScore: 0,
-        createdAt: firebase.database.ServerValue.TIMESTAMP,
-        updatedAt: firebase.database.ServerValue.TIMESTAMP,
-      }),
-      firebase.database().ref(`users/${userId}/${gameId}`).set({
-        name,
-        owner: true,
-        createdAt: firebase.database.ServerValue.TIMESTAMP,
-        updatedAt: firebase.database.ServerValue.TIMESTAMP,
-      }),
-    ];
-    try {
-      await Promise.all(promises);
-      setStatus("created");
-      console.log("created game with id:", gameId, ", with owner: ", userId);
-      router.push(`/game/${gameId}`);
-    } catch (err) {
-      setStatus("error");
-      console.error(err);
+        userId: user.uid,
+      })
+      if (gameId) {
+        setStatus('created')
+        router.push(`/game/${gameId}`)
+      } else {
+        setStatus('error')
+      }
     }
-  };
+  }
 
   return (
     <div>
@@ -79,13 +44,14 @@ export default function NewGame() {
         <div className="text-2xl mt-4 text-center uppercase mb-4">New Game</div>
         <div className="rounded-2xl overflow-hidden border-2 m-4">
           <div className="flex relative overflow-hidden">
-            {game === "dutch-blitz" && (
+            {game === ScorecardGame.DutchBlitz && (
               <img
                 className="absolute z-0 inset-0 w-full h-full object-cover"
                 src="https://www.dutchblitz.com/wp-content/uploads/dbhed.jpg"
               />
             )}
-            {game === "7-wonders" && (
+
+            {game === '7-wonders' && (
               <img
                 className="absolute z-0 inset-0 w-full h-full object-cover"
                 src="https://www.7wonders.net//storage/games/7-wonders/sev-content-159243209212Feq.png"
@@ -94,8 +60,8 @@ export default function NewGame() {
 
             <div className="flex-auto relative z-10 px-4 pb-4 pt-24 text-white bg-gradient-to-t from-gray-900">
               <div className="uppercase font-medium text-xl">
-                {game === "dutch-blitz" && "Dutch Blitz"}
-                {game === "7-wonders" && "7 Wonders"}
+                {game === ScorecardGame.DutchBlitz && 'Dutch Blitz'}
+                {game === '7-wonders' && '7 Wonders'}
               </div>
               <div className="uppercase text-xs mb-2">2 - 8 players</div>
             </div>
@@ -114,7 +80,7 @@ export default function NewGame() {
             {user?.uid && (
               <button
                 className="block bg-indigo-800 hover:bg-indigo-700 text-white uppercase text-sm font-semibold mx-auto px-4 py-2 rounded"
-                onClick={() => createGame(user.uid)}
+                onClick={onCreateClick}
               >
                 Create
               </button>
@@ -123,5 +89,5 @@ export default function NewGame() {
         </div>
       </main>
     </div>
-  );
+  )
 }

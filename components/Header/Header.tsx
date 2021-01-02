@@ -1,13 +1,13 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent } from 'react'
 
-import Link from "next/link";
-import { useRouter } from "next/router";
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export const Header: FunctionComponent = () => {
-  const router = useRouter();
+  const router = useRouter()
   return (
     <div className="flex items-center bg-gray-700 text-white justify-between sha h-16 px-4">
-      {router.asPath !== "/" ? (
+      {router.asPath !== '/' ? (
         <Link href="/">
           <div className="p-4 -ml-4">
             <svg
@@ -32,5 +32,5 @@ export const Header: FunctionComponent = () => {
       <span className="text-4xl font-bold font-mono">ScoreCard</span>
       <div className="w-6"></div>
     </div>
-  );
-};
+  )
+}

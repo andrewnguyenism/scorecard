@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home page renders page with user 1`] = `
+<DocumentFragment>
+  <div>
+    <main>
+      <div
+        class="text-2xl mt-4 text-center uppercase mb-4"
+      >
+        New Game
+      </div>
+      <a
+        class="flex group rounded-2xl border-2 overflow-hidden m-4"
+        href="/new-game/dutch-blitz"
+      >
+        <div
+          class="w-36 relative overflow-hidden"
+        >
+          <img
+            class="absolute inset-0 w-full h-full object-cover transition duration-200 transform group-hover:scale-110"
+            src="https://www.dutchblitz.com/wp-content/uploads/dbhed.jpg"
+          />
+        </div>
+        <div
+          class="flex-auto py-12 text-center group-hover:bg-gray-100"
+        >
+          <div
+            class="uppercase font-bold"
+          >
+            Dutch Blitz
+          </div>
+          <div
+            class="uppercase text-sm"
+          >
+            2 - 8 players
+          </div>
+        </div>
+      </a>
+      <a
+        class="flex group rounded-2xl border-2 overflow-hidden m-4"
+        href="/new-game/7-wonders"
+      >
+        <div
+          class="w-36 relative overflow-hidden"
+        >
+          <img
+            class="absolute inset-0 w-full h-full object-cover transition duration-200 transform group-hover:scale-110"
+            src="https://www.7wonders.net//storage/games/7-wonders/sev-content-159243209212Feq.png"
+          />
+        </div>
+        <div
+          class="flex-auto py-12 text-center group-hover:bg-gray-100"
+        >
+          <div
+            class="uppercase font-bold"
+          >
+            7 Wonders
+          </div>
+          <div
+            class="uppercase text-sm"
+          >
+            2 - 8 players
+          </div>
+        </div>
+      </a>
+    </main>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Home page renders page without user 1`] = `
+<DocumentFragment>
+  <div>
+    <main>
+      <div
+        class="text-2xl mt-4 text-center uppercase mb-4"
+      >
+        New Game
+      </div>
+      <a
+        class="flex group rounded-2xl border-2 overflow-hidden m-4"
+        href="/new-game/dutch-blitz"
+      >
+        <div
+          class="w-36 relative overflow-hidden"
+        >
+          <img
+            class="absolute inset-0 w-full h-full object-cover transition duration-200 transform group-hover:scale-110"
+            src="https://www.dutchblitz.com/wp-content/uploads/dbhed.jpg"
+          />
+        </div>
+        <div
+          class="flex-auto py-12 text-center group-hover:bg-gray-100"
+        >
+          <div
+            class="uppercase font-bold"
+          >
+            Dutch Blitz
+          </div>
+          <div
+            class="uppercase text-sm"
+          >
+            2 - 8 players
+          </div>
+        </div>
+      </a>
+      <a
+        class="flex group rounded-2xl border-2 overflow-hidden m-4"
+        href="/new-game/7-wonders"
+      >
+        <div
+          class="w-36 relative overflow-hidden"
+        >
+          <img
+            class="absolute inset-0 w-full h-full object-cover transition duration-200 transform group-hover:scale-110"
+            src="https://www.7wonders.net//storage/games/7-wonders/sev-content-159243209212Feq.png"
+          />
+        </div>
+        <div
+          class="flex-auto py-12 text-center group-hover:bg-gray-100"
+        >
+          <div
+            class="uppercase font-bold"
+          >
+            7 Wonders
+          </div>
+          <div
+            class="uppercase text-sm"
+          >
+            2 - 8 players
+          </div>
+        </div>
+      </a>
+    </main>
+  </div>
+</DocumentFragment>
+`;

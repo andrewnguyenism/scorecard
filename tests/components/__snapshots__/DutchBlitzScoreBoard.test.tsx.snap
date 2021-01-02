@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DutchBlitzScoreBoard component renders 1`] = `
+<DocumentFragment>
+  <div
+    class="m-4 rounded-2xl overflow-hidden border-2"
+  >
+    <div
+      class="border-b border-gray-300 px-4 py-3 text-gray-600 bg-gray-200 text-lg text-center"
+    >
+      <div
+        class="text-sm font-bold uppercase mb-2"
+      >
+        Dutch Blitz
+      </div>
+      <div
+        class="cursor-pointer rounded-2xl bg-gray-300 hover:bg-gray-400 px-3 inline-flex items-center font-bold"
+        role="button"
+      >
+        <span
+          class="text-gray-800 text-xl font-mono font-bold tracking-widest"
+        >
+          AB123
+        </span>
+        <svg
+          class="h-4 w-4 ml-0.5"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8 2a1 1 0 000 2h2a1 1 0 100-2H8z"
+          />
+          <path
+            d="M3 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v6h-4.586l1.293-1.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L10.414 13H15v3a2 2 0 01-2 2H5a2 2 0 01-2-2V5zM15 11h2a1 1 0 110 2h-2v-2z"
+          />
+        </svg>
+      </div>
+      <div
+        class="animate-pulse text-xs text-red-800 font-bold uppercase mt-2"
+      >
+        Live
+      </div>
+    </div>
+    <div
+      class="flex items-center px-4 py-2 text-gray-600 bg-gray-200 text-sm"
+    >
+      <div
+        class="w-8/12 text-gray-800 font-bold"
+      >
+        Round 7
+      </div>
+      <div
+        class="w-12 text-center"
+      >
+        Dutch
+      </div>
+      <div
+        class="w-12 text-center"
+      >
+        Blitz
+      </div>
+      <div
+        class="w-12 text-center"
+      >
+        Total
+      </div>
+    </div>
+    <div>
+      <div
+        class="flex items-center px-4 py-2"
+      >
+        <div
+          class="flex items-center w-8/12"
+        >
+          <span
+            class="w-8 font-bold"
+          >
+            <span>
+              🥇
+            </span>
+          </span>
+          Player 1
+        </div>
+        <div
+          class="w-12 text-center"
+        >
+          10
+        </div>
+        <div
+          class="w-12 text-center"
+        >
+          0
+        </div>
+        <div
+          class="w-12 text-center text-lg font-bold"
+        >
+          10
+        </div>
+      </div>
+      <div
+        class="flex items-center px-4 py-2"
+      >
+        <div
+          class="flex items-center w-8/12"
+        >
+          <span
+            class="w-8 font-bold"
+          >
+            <span>
+              🥈
+            </span>
+          </span>
+          Player 2
+        </div>
+        <div
+          class="w-12 text-center"
+        >
+          15
+        </div>
+        <div
+          class="w-12 text-center"
+        >
+          5
+        </div>
+        <div
+          class="w-12 text-center text-lg font-bold"
+        >
+          5
+        </div>
+      </div>
+    </div>
+    <div
+      class="border-t border-gray-300 px-4 py-3 text-gray-600"
+    >
+      <button
+        class="block bg-indigo-800 hover:bg-indigo-700 text-white uppercase text-2xl font-semibold mx-auto px-4 py-2 rounded-2xl"
+      >
+        Blitz!
+      </button>
+    </div>
+    <div
+      class="flex justify-center border-t border-gray-300 px-4 py-3 text-gray-600 bg-gray-200"
+    >
+      <button
+        class="bg-red-700 hover:bg-red-600 text-white uppercase text-sm mx-auto px-4 py-2 rounded-2xl"
+      >
+        Finish Game
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

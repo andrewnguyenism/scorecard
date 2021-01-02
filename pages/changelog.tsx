@@ -1,6 +1,6 @@
-import Head from "next/head";
+import Head from 'next/head'
 
-export default function Changelog() {
+export default function Changelog(): JSX.Element {
   return (
     <div>
       <Head>
@@ -11,6 +11,14 @@ export default function Changelog() {
       <main>
         <div className="text-2xl mt-4 text-center uppercase mb-4">
           Changelog
+        </div>
+        <div className="rounded border-2 m-4 p-4">
+          <div className="text-xl font-bold">Version 3</div>
+          <div className="text-sm">31/12/2020</div>
+          <ul className="list-disc ml-4 mt-4">
+            <li>Fixed Dutch Blitz Score Submission not allowing &quot;blank&quot; values.</li>
+            <li>Pulse the &quot;LIVE&quot; indicator on the scoreboard.</li>
+          </ul>
         </div>
         <div className="rounded border-2 m-4 p-4">
           <div className="text-xl font-bold">Version 2</div>
@@ -28,5 +36,5 @@ export default function Changelog() {
         </div>
       </main>
     </div>
-  );
+  )
 }
