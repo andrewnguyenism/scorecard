@@ -1,6 +1,6 @@
 # Scorecard
 
-[scorecard.andrewnguyenism.com](scorecard.andrewnguyenism.com)
+[scorecard.andrewnguyenism.com](https://scorecard.andrewnguyenism.com)
 
 Scorecard let's you do live scorekeeping for board games and card games!
 
